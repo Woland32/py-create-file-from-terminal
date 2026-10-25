@@ -85,4 +85,5 @@ def main() -> None:
         print(f"Content written to: {path}")
 
 
-main()
+if __name__ in ("__main__", "<run_path>"):
+    main()
