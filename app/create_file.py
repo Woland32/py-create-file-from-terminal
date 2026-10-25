@@ -54,24 +54,24 @@ def write_content(path: str, lines: list[str]) -> None:
         output_file.write("\n".join(block) + "\n")
 
 
-def main() -> int:
+def main() -> None:
     argv = sys.argv[1:]
     if not argv:
         print(USAGE)
-        return 1
+        sys.exit(1)
 
     try:
         dirs, file_name = parse_args(argv)
     except ValueError as err:
         print(f"Error: {err}\n{USAGE}")
-        return 1
+        sys.exit(1)
 
     if "-d" in argv and not dirs:
         print(f"Error: -d requires at least one directory name.\n{USAGE}")
-        return 1
+        sys.exit(1)
     if "-f" in argv and file_name is None:
         print(f"Error: -f requires a file name.\n{USAGE}")
-        return 1
+        sys.exit(1)
 
     target_dir = os.path.join(*dirs) if dirs else os.getcwd()
     if dirs:
@@ -84,8 +84,5 @@ def main() -> int:
         write_content(path, lines)
         print(f"Content written to: {path}")
 
-    return 0
 
-
-if __name__ == "__main__":
-    sys.exit(main())
+main()
